@@ -7,71 +7,42 @@ function Pricing() {
     trackCTAClick(`pricing_${packageName}`)
   }
 
-  const pricingPlans = [
+  const subscriptionPlans = [
     {
-      name: 'Starter Pack',
-      icon: '🍀',
-      price: '$4',
-      period: 'one-time',
-      pricePerCredit: '$0.200',
-      credits: 20,
-      features: ['Basic AI scheduling'],
-      idealFor: 'First-time users trying Ping',
-      popular: false
-    },
-    {
-      name: 'Smart Saver Pack',
-      icon: '⚡',
+      name: 'Monthly Plan',
+      icon: '📅',
       price: '$8',
-      period: 'one-time',
-      pricePerCredit: '$0.130',
-      credits: 60,
-      features: ['1 Bonus Smart Schedule'],
-      idealFor: 'Regular students or professionals',
-      popular: true,
-      socialProof: 'Trusted by 1,200 students and creators.'
-    },
-    {
-      name: 'Power Pack',
-      icon: '🚀',
-      price: '$15',
-      period: 'one-time',
-      pricePerCredit: '$0.100',
-      credits: 150,
-      features: [
-        'Auto-Sync Pro (automatically updates your schedule when deadlines shift)',
-        'Priority AI (faster, more responsive scheduling)'
-      ],
-      idealFor: 'Power users or startup teams',
-      popular: false
-    },
-    {
-      name: 'Semester Pack',
-      icon: '🎓',
-      price: '$25',
-      period: 'one-time',
-      pricePerCredit: '$0.083',
-      credits: 300,
-      features: [
-        'Team Share (up to 3 users share the same credit wallet)',
-        'All Power Pack perks'
-      ],
-      idealFor: 'Students or professionals planning for an entire semester or quarter',
-      popular: false
-    },
-    {
-      name: 'Unlimited Month Plan',
-      icon: '∞',
-      price: '$15',
       period: '/month',
-      pricePerCredit: 'Unlimited',
-      credits: null,
-      creditsLabel: 'for 1 month',
+      billing: 'Billed monthly',
       features: [
-        'All features',
-        'Credit rollover if renewed'
+        'Unlimited SMS notifications',
+        'Calendar sync (Google, Outlook)',
+        'LMS integration (Canvas, Brightspace)',
+        'Daily digest messages',
+        'Event reminders & alerts',
+        'RSVP management',
+        'Priority support'
       ],
-      idealFor: 'Professionals or teams who want predictable monthly access',
+      idealFor: 'Students and professionals who want flexible monthly access',
+      popular: true,
+      socialProof: 'Most popular choice'
+    },
+    {
+      name: 'Yearly Plan',
+      icon: '💎',
+      price: '$72',
+      period: '/year',
+      originalPrice: '$96',
+      savings: 'Save $24 (25% off)',
+      billing: 'Billed annually',
+      features: [
+        'Everything in Monthly Plan',
+        '2 months free (vs monthly)',
+        'Priority feature requests',
+        'Early access to new features',
+        'Dedicated account support'
+      ],
+      idealFor: 'Long-term users who want the best value',
       popular: false
     }
   ]
@@ -81,13 +52,16 @@ function Pricing() {
       <div className="container">
         <h2 className="section-title">Pricing</h2>
         <p className="pricing-subtitle">
-          Each credit saves you ~15 minutes of manual scheduling.
+          Simple, transparent pricing. Cancel anytime.
         </p>
-        <div className="pricing-grid">
-          {pricingPlans.map((plan, index) => (
-            <div key={index} className={`pricing-card ${plan.popular ? 'popular' : ''}`}>
+        <div className="pricing-grid subscription-grid">
+          {subscriptionPlans.map((plan, index) => (
+            <div key={index} className={`pricing-card subscription-card ${plan.popular ? 'popular' : ''}`}>
               {plan.popular && (
                 <div className="popular-badge">Most Popular</div>
+              )}
+              {plan.savings && (
+                <div className="savings-badge">{plan.savings}</div>
               )}
               <div className="plan-icon">{plan.icon}</div>
               <h3 className="plan-name">{plan.name}</h3>
@@ -95,13 +69,14 @@ function Pricing() {
                 <span className="price-amount">{plan.price}</span>
                 <span className="price-period">{plan.period}</span>
               </div>
-              <div className="credit-info">
-                <span className="per-credit">{plan.pricePerCredit} per credit</span>
-                {plan.credits ? (
-                  <span className="total-credits">{plan.credits} credits</span>
-                ) : (
-                  <span className="total-credits">{plan.creditsLabel}</span>
-                )}
+              {plan.originalPrice && (
+                <div className="original-price">
+                  <span className="original-price-label">Regular price:</span>
+                  <span className="original-price-value">{plan.originalPrice}/year</span>
+                </div>
+              )}
+              <div className="billing-info">
+                {plan.billing}
               </div>
               <ul className="plan-features">
                 {plan.features.map((feature, idx) => (
@@ -125,7 +100,7 @@ function Pricing() {
           ))}
         </div>
         <p className="pricing-footer-note">
-          Offer 10 free credits to all new users to create a low-friction entry point.
+          All plans include a 14-day free trial. No credit card required to start.
         </p>
       </div>
     </section>

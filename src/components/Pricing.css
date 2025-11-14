@@ -19,6 +19,13 @@
   margin-bottom: var(--space-8);
 }
 
+.subscription-grid {
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .pricing-grid .pricing-card:nth-child(n+4) {
   grid-column: span 1;
 }
@@ -123,6 +130,50 @@
   font-weight: 600;
 }
 
+.billing-info {
+  text-align: center;
+  color: var(--color-muted);
+  font-size: 14px;
+  margin-bottom: var(--space-6);
+  font-weight: 500;
+}
+
+.original-price {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  margin-bottom: var(--space-2);
+}
+
+.original-price-label {
+  font-size: 12px;
+  color: var(--color-muted);
+}
+
+.original-price-value {
+  font-size: 14px;
+  color: var(--color-muted);
+  text-decoration: line-through;
+}
+
+.savings-badge {
+  position: absolute;
+  top: -12px;
+  left: var(--space-4);
+  background-color: var(--color-success);
+  color: white;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.subscription-card {
+  max-width: 450px;
+  margin: 0 auto;
+}
+
 .plan-features {
   list-style: none;
   padding: 0;
@@ -170,6 +221,10 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .subscription-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .pricing-grid .pricing-card:nth-child(4) {
     grid-column: 1 / 2;
   }
@@ -183,6 +238,10 @@
   .pricing-grid {
     grid-template-columns: 1fr;
     gap: var(--space-4);
+  }
+
+  .subscription-grid {
+    grid-template-columns: 1fr;
   }
 
   .pricing-grid .pricing-card:nth-child(4),
