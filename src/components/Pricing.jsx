@@ -102,6 +102,7 @@ function Pricing() {
         <p className="pricing-footer-note">
           All plans include a 14-day free trial. No credit card required to start.
         </p>
+        {/* Subscription pricing model for A/B testing */}
       </div>
     </section>
   )
