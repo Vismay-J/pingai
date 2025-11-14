@@ -6,24 +6,25 @@ export const trackEvent = (eventName, properties = {}) => {
   window.dataLayer = window.dataLayer || []
   
   // Push to dataLayer (this is the reliable way for GA4)
-  window.dataLayer.push({
+  const eventData = {
     event: eventName,
     ...properties
-  })
+  }
+  
+  window.dataLayer.push(eventData)
   
   // Also use gtag if available (for immediate execution)
   if (window.gtag && typeof window.gtag === 'function') {
     try {
       window.gtag('event', eventName, properties)
     } catch (e) {
-      // Silently fail if gtag has issues
+      console.warn('gtag error:', e)
     }
   }
   
-  // Log in development
-  if (import.meta.env.DEV) {
-    console.log('📊 GA4 Event:', eventName, properties)
-  }
+  // Always log for debugging (helps verify events are firing)
+  console.log('📊 GA4 Event:', eventName, properties)
+  console.log('📊 dataLayer length:', window.dataLayer.length)
 }
 
 // Convenience functions for common events
