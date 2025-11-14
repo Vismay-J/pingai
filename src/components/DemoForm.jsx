@@ -63,8 +63,14 @@ function DemoForm() {
     const pricingModel = getStoredPricingModel()
     const hasPhone = !!formData.emailOrPhone.trim()
     const hasName = !!formData.name.trim()
-    trackWaitlistSubmit(pricingModel, hasPhone, hasName)
-    trackFormSubmit('waitlist', { pricing_model: pricingModel })
+    
+    // Get selected plan from sessionStorage (set when user clicks pricing button)
+    const selectedPlan = typeof window !== 'undefined' 
+      ? sessionStorage.getItem('selected_plan') 
+      : null
+    
+    trackWaitlistSubmit(pricingModel, hasPhone, hasName, selectedPlan)
+    trackFormSubmit('waitlist', { pricing_model: pricingModel, selected_plan: selectedPlan })
 
     try {
       await submitWaitlistEntry({
