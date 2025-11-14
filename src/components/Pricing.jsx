@@ -6,12 +6,23 @@ import './Pricing.css'
 function Pricing() {
   // Detect and store pricing model when component mounts
   useEffect(() => {
-    storePricingModel()
+    // Small delay to ensure DOM is ready
+    setTimeout(() => {
+      const model = storePricingModel()
+      console.log('💰 Pricing model detected:', model)
+    }, 100)
   }, [])
 
   const handlePricingClick = (planName, planPrice) => {
     const pricingModel = storePricingModel()
+    console.log('🔘 Pricing button clicked:', { pricingModel, planName, planPrice })
     trackPricingClick(pricingModel, planName, planPrice)
+    
+    // Store selected plan for waitlist tracking
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('selected_plan', planName)
+      sessionStorage.setItem('selected_plan_price', planPrice)
+    }
   }
 
   const handleCTAClick = (packageName) => {
