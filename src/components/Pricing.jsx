@@ -1,8 +1,19 @@
-import React from 'react'
-import { trackCTAClick } from '../utils/analytics'
+import React, { useEffect } from 'react'
+import { trackPricingClick, trackCTAClick } from '../utils/analytics'
+import { storePricingModel } from '../utils/pricingModel'
 import './Pricing.css'
 
 function Pricing() {
+  // Detect and store pricing model when component mounts
+  useEffect(() => {
+    storePricingModel()
+  }, [])
+
+  const handlePricingClick = (planName, planPrice) => {
+    const pricingModel = storePricingModel()
+    trackPricingClick(pricingModel, planName, planPrice)
+  }
+
   const handleCTAClick = (packageName) => {
     trackCTAClick(`pricing_${packageName}`)
   }
@@ -92,7 +103,10 @@ function Pricing() {
               <a
                 href="#waitlist"
                 className="btn btn-primary"
-                onClick={() => handleCTAClick(plan.name.toLowerCase().replace(/\s+/g, '-'))}
+                onClick={() => {
+                  handlePricingClick(plan.name, plan.price)
+                  handleCTAClick(plan.name.toLowerCase().replace(/\s+/g, '-'))
+                }}
               >
                 Get Started →
               </a>
