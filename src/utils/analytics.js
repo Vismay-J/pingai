@@ -1,27 +1,49 @@
-// Analytics placeholder - replace with your analytics service (e.g., Google Analytics, Mixpanel, etc.)
+// Google Analytics 4 Event Tracking
 export const trackEvent = (eventName, properties = {}) => {
-  // TODO: Replace with actual analytics implementation
-  // Example implementations:
-  // - Google Analytics: gtag('event', eventName, properties)
-  // - Mixpanel: mixpanel.track(eventName, properties)
-  // - Custom: fetch('/api/analytics', { method: 'POST', body: JSON.stringify({ eventName, properties }) })
+  // Check if gtag is available (Google Analytics loaded)
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('event', eventName, properties)
+  }
   
-  if (process.env.NODE_ENV === 'development') {
+  // Also log in development
+  if (import.meta.env.DEV) {
     console.log('Analytics Event:', eventName, properties)
   }
 }
 
 // Convenience functions for common events
-export const trackCTAClick = (location) => {
-  trackEvent('cta_click', { location })
+export const trackCTAClick = (location, additionalProps = {}) => {
+  trackEvent('cta_click', { location, ...additionalProps })
 }
 
-export const trackFormSubmit = (formType) => {
-  trackEvent('form_submit', { formType })
+export const trackFormSubmit = (formType, additionalProps = {}) => {
+  trackEvent('form_submit', { formType, ...additionalProps })
 }
 
 export const trackFAQToggle = (questionId) => {
   trackEvent('faq_toggle', { questionId })
+}
+
+// Pricing-specific tracking
+export const trackPricingClick = (pricingModel, planName, planPrice) => {
+  trackEvent('pricing_button_click', {
+    pricing_model: pricingModel, // 'credits' or 'subscription'
+    plan_name: planName,
+    plan_price: planPrice,
+    event_category: 'pricing',
+    event_label: `${pricingModel}_${planName}`
+  })
+}
+
+// Waitlist submission tracking
+export const trackWaitlistSubmit = (pricingModel, hasPhone, hasName) => {
+  trackEvent('waitlist_submit', {
+    pricing_model: pricingModel, // 'credits' or 'subscription'
+    phone_provided: hasPhone,
+    name_provided: hasName,
+    event_category: 'conversion',
+    event_label: `waitlist_${pricingModel}`
+  })
 }
 
 

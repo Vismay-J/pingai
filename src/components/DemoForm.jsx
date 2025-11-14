@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { trackFormSubmit } from '../utils/analytics'
+import { trackWaitlistSubmit, trackFormSubmit } from '../utils/analytics'
+import { getStoredPricingModel } from '../utils/pricingModel'
 import { submitWaitlistEntry } from '../utils/waitlist'
 import './DemoForm.css'
 
@@ -57,14 +58,21 @@ function DemoForm() {
 
     setIsSubmitting(true)
     setErrorMessage('')
-    trackFormSubmit('waitlist')
+    
+    // Track waitlist submission with pricing model context
+    const pricingModel = getStoredPricingModel()
+    const hasPhone = !!formData.emailOrPhone.trim()
+    const hasName = !!formData.name.trim()
+    trackWaitlistSubmit(pricingModel, hasPhone, hasName)
+    trackFormSubmit('waitlist', { pricing_model: pricingModel })
 
     try {
       await submitWaitlistEntry({
         emailOrPhone: formData.emailOrPhone,
         name: formData.name || '',
         source: 'website-waitlist',
-        consent: formData.consent
+        consent: formData.consent,
+        pricingModel: pricingModel // Also send to backend for tracking
       })
 
       setIsSuccess(true)
