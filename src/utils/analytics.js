@@ -5,26 +5,53 @@ export const trackEvent = (eventName, properties = {}) => {
   // Ensure dataLayer exists (GA4 uses this)
   window.dataLayer = window.dataLayer || []
   
-  // Push to dataLayer (this is the reliable way for GA4)
-  const eventData = {
-    event: eventName,
-    ...properties
-  }
-  
-  window.dataLayer.push(eventData)
-  
-  // Also use gtag if available (for immediate execution)
-  if (window.gtag && typeof window.gtag === 'function') {
-    try {
-      window.gtag('event', eventName, properties)
-    } catch (e) {
-      console.warn('gtag error:', e)
+  // Wait a bit for gtag to be ready if it's still loading
+  const sendEvent = () => {
+    if (window.gtag && typeof window.gtag === 'function') {
+      try {
+        // Use gtag directly (this is the recommended way for GA4)
+        window.gtag('event', eventName, properties)
+        console.log('✅ GA4 Event sent via gtag:', eventName, properties)
+      } catch (e) {
+        console.warn('❌ gtag error:', e)
+        // Fallback to dataLayer if gtag fails
+        window.dataLayer.push({
+          event: eventName,
+          ...properties
+        })
+        console.log('📊 GA4 Event sent via dataLayer (fallback):', eventName, properties)
+      }
+    } else {
+      // Fallback: push to dataLayer if gtag not available
+      window.dataLayer.push({
+        event: eventName,
+        ...properties
+      })
+      console.log('📊 GA4 Event sent via dataLayer:', eventName, properties)
     }
   }
   
-  // Always log for debugging (helps verify events are firing)
-  console.log('📊 GA4 Event:', eventName, properties)
+  // If gtag isn't ready, wait a bit and try again
+  if (!window.gtag || typeof window.gtag !== 'function') {
+    // Wait up to 2 seconds for gtag to load
+    let attempts = 0
+    const checkGtag = setInterval(() => {
+      attempts++
+      if (window.gtag && typeof window.gtag === 'function') {
+        clearInterval(checkGtag)
+        sendEvent()
+      } else if (attempts >= 20) {
+        // After 2 seconds, give up and use dataLayer
+        clearInterval(checkGtag)
+        sendEvent()
+      }
+    }, 100)
+  } else {
+    sendEvent()
+  }
+  
   console.log('📊 dataLayer length:', window.dataLayer.length)
+  console.log('📊 gtag available:', typeof window.gtag === 'function')
 }
 
 // Convenience functions for common events
