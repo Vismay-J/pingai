@@ -1,0 +1,127 @@
+.demo {
+  background-color: var(--color-surface);
+}
+
+.demo-helper {
+  text-align: center;
+  color: var(--color-muted);
+  font-size: 16px;
+  max-width: 600px;
+  margin: 0 auto var(--space-8);
+  line-height: 1.6;
+}
+
+.demo-form {
+  max-width: 500px;
+  margin: 0 auto;
+  background-color: var(--color-surface);
+  padding: var(--space-8);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+}
+
+.form-group {
+  margin-bottom: var(--space-6);
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--space-2);
+  font-size: 16px;
+}
+
+.required {
+  color: var(--color-accent);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 14px;
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius);
+  font-size: 16px;
+  font-family: inherit;
+  transition: border-color var(--transition);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+.form-group input:invalid:not(:focus):not(:placeholder-shown) {
+  border-color: #EF4444;
+}
+
+.error-message {
+  display: block;
+  color: #EF4444;
+  font-size: 14px;
+  margin-top: var(--space-2);
+}
+
+.success-message {
+  background-color: var(--color-success);
+  color: white;
+  padding: var(--space-4);
+  border-radius: var(--radius);
+  margin-bottom: var(--space-4);
+  text-align: center;
+  font-weight: 500;
+}
+
+.demo-form .btn {
+  width: 100%;
+  padding: 16px;
+  font-size: 16px;
+}
+
+.demo-form .btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.checkbox-group input[type="checkbox"] {
+  width: auto;
+  margin-top: 4px;
+  flex-shrink: 0;
+  cursor: pointer;
+  accent-color: var(--color-accent);
+}
+
+.checkbox-label {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-text);
+  cursor: pointer;
+  margin-bottom: 0;
+}
+
+.checkbox-label a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  transition: color var(--transition);
+}
+
+.checkbox-label a:hover {
+  color: var(--color-accent-600);
+}
+
+@media (max-width: 768px) {
+  .demo-form {
+    padding: var(--space-6);
+  }
+}
+
+

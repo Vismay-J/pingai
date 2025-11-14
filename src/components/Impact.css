@@ -1,0 +1,76 @@
+.impact {
+  background-color: var(--color-surface);
+}
+
+.impact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-6);
+  margin-top: var(--space-8);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity var(--transition-slow), transform var(--transition-slow);
+}
+
+.impact-grid.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.impact-tile {
+  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-600));
+  padding: var(--space-8);
+  border-radius: var(--radius);
+  color: white;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+  transition: transform var(--transition);
+  animation: fadeInUp 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.impact-grid.visible .impact-tile {
+  opacity: 1;
+}
+
+.impact-tile:hover {
+  transform: translateY(-4px) scale(1.02);
+}
+
+.impact-value {
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 700;
+  margin-bottom: var(--space-3);
+  line-height: 1.2;
+}
+
+.impact-label {
+  font-size: 16px;
+  line-height: 1.6;
+  opacity: 0.95;
+  margin: 0;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .impact-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  .impact-tile {
+    padding: var(--space-6);
+  }
+}
+
+
