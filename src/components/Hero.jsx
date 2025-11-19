@@ -1,9 +1,34 @@
-import React from 'react'
-import { motion } from 'framer-motion'
+import React, { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { trackCTAClick } from '../utils/analytics'
 import './Hero.css'
 
 function Hero() {
+  const [animationStep, setAnimationStep] = useState(0)
+
+  useEffect(() => {
+    const sequence = async () => {
+      while (true) {
+        // Reset
+        setAnimationStep(0)
+        await new Promise(r => setTimeout(r, 1000))
+        
+        // Step 1: User message
+        setAnimationStep(1)
+        await new Promise(r => setTimeout(r, 1500))
+        
+        // Step 2: Typing
+        setAnimationStep(2)
+        await new Promise(r => setTimeout(r, 1500))
+        
+        // Step 3: Ping reply
+        setAnimationStep(3)
+        await new Promise(r => setTimeout(r, 4000))
+      }
+    }
+    sequence()
+  }, [])
+
   const handleCTAClick = (type) => {
     trackCTAClick(`hero_${type}`)
   }
@@ -98,30 +123,65 @@ function Hero() {
               <div className="phone-header">
                 <div className="phone-notch"></div>
               </div>
-              <div className="phone-content">
-                <div className="phone-overlay">
-                  <div className="phone-message">
-                    <div className="message-header">
-                      <span>Ping • 8:00 AM</span>
-                    </div>
-                    <div className="message-body">
-                      <strong>Today's Digest:</strong>
-                      • CS101 Lecture @ 10am<br />
-                      • Math Quiz due @ 5pm<br />
-                      • Study group @ 7pm
+              <div className="phone-content chat-interface">
+                <div className="chat-header">
+                  <div className="chat-contact">
+                    <div className="contact-avatar">P</div>
+                    <div className="contact-info">
+                      <div className="contact-name">Ping</div>
+                      <div className="contact-status">iMessage</div>
                     </div>
                   </div>
-                  
-                  <div className="phone-message">
-                    <div className="message-header">
-                      <span style={{ color: '#ef4444' }}>Ping • 10:12 AM</span>
-                    </div>
-                    <div className="message-body">
-                      <strong>⚠️ Room Change Alert</strong>
-                      CS101 moved to Room 205.<br />
-                      Leave in 12 min to make it on time.
-                    </div>
-                  </div>
+                </div>
+                
+                <div className="chat-messages">
+                  <AnimatePresence mode="wait">
+                    {animationStep >= 1 && (
+                      <motion.div 
+                        className="chat-bubble user"
+                        initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.9 }}
+                        transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                      >
+                        Book a meeting with John at 2PM tomorrow
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  <AnimatePresence mode="wait">
+                    {animationStep === 2 && (
+                      <motion.div 
+                        className="chat-bubble ping typing"
+                        initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.9 }}
+                      >
+                        <span className="dot"></span>
+                        <span className="dot"></span>
+                        <span className="dot"></span>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  <AnimatePresence mode="wait">
+                    {animationStep >= 3 && (
+                      <motion.div 
+                        className="chat-bubble ping"
+                        initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.9 }}
+                        transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                      >
+                        Confirmed. I've added "Meeting with John" to your calendar for tomorrow at 2:00 PM.
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+                
+                <div className="chat-input-area">
+                  <div className="chat-input-placeholder">iMessage</div>
+                  <div className="chat-send-btn">↑</div>
                 </div>
               </div>
             </div>
