@@ -6,13 +6,18 @@ import './Hero.css'
 function Hero() {
   const [messages, setMessages] = useState([])
   const [isTyping, setIsTyping] = useState(false)
-  const messagesEndRef = useRef(null)
   const chatContainerRef = useRef(null)
 
   const scenarios = [
     [
       { type: 'user', text: 'Book a meeting with John at 2PM tomorrow' },
       { type: 'ping', text: 'Confirmed. I\'ve added "Meeting with John" to your calendar for tomorrow at 2:00 PM.' }
+    ],
+    [
+      { type: 'user', text: 'add "Math review" today 2:30–3:30' },
+      { type: 'ping', text: 'That overlaps with "Study group" 2:30–3:30. Want me to move the existing event or the new one?' },
+      { type: 'user', text: 'squeeze the new one in and move the existing down' },
+      { type: 'ping', text: 'Done.\n• Math review set for 2:30–3:25 (5-min buffer)\n• Study group moved to 3:30–4:30\nNo other conflicts.' }
     ],
     [
       { type: 'user', text: 'delete econ study tomorrow 5pm' },
@@ -36,17 +41,6 @@ function Hero() {
     ]
   ]
 
-  // Auto-scroll chat container to bottom
-  useEffect(() => {
-    if (chatContainerRef.current) {
-      const scrollHeight = chatContainerRef.current.scrollHeight
-      chatContainerRef.current.scrollTo({
-        top: scrollHeight,
-        behavior: 'smooth'
-      })
-    }
-  }, [messages, isTyping])
-
   useEffect(() => {
     let isMounted = true
     
@@ -54,6 +48,11 @@ function Hero() {
       let scenarioIndex = 0
       
       while (isMounted) {
+        // Clear messages at the start of each scenario
+        setMessages([])
+        await new Promise(r => setTimeout(r, 500))
+        if (!isMounted) break
+
         const currentScenario = scenarios[scenarioIndex]
         
         // Iterate through messages in the current scenario
@@ -72,15 +71,38 @@ function Hero() {
             if (!isMounted) break
             setIsTyping(true)
             
+            // Scroll to bottom when typing starts
+             if (chatContainerRef.current) {
+                const scrollHeight = chatContainerRef.current.scrollHeight
+                chatContainerRef.current.scrollTo({
+                    top: scrollHeight,
+                    behavior: 'smooth'
+                })
+            }
+            
             await new Promise(r => setTimeout(r, 1500)) // Typing duration
             if (!isMounted) break
             setIsTyping(false)
             setMessages(prev => [...prev, msg])
           }
+
+          // Scroll to bottom after message is added
+          if (chatContainerRef.current) {
+             // Use a slight delay to allow render
+             setTimeout(() => {
+                 if (chatContainerRef.current) {
+                    const scrollHeight = chatContainerRef.current.scrollHeight
+                    chatContainerRef.current.scrollTo({
+                        top: scrollHeight,
+                        behavior: 'smooth'
+                    })
+                 }
+             }, 100)
+          }
         }
 
         // Wait before next scenario
-        await new Promise(r => setTimeout(r, 2000))
+        await new Promise(r => setTimeout(r, 4000))
         if (!isMounted) break
 
         // Move to next scenario (looping)
@@ -135,6 +157,24 @@ function Hero() {
           animate="visible"
         >
           <div className="hero-text">
+             <motion.div className="lms-logos" variants={itemVariants}>
+              <span className="lms-label">Works with</span>
+              <div className="lms-list">
+                <span className="lms-item canvas">
+                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v8"></path><path d="M8 12h8"></path></svg>
+                   Canvas
+                </span>
+                <span className="lms-item blackboard">
+                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                   Blackboard
+                </span>
+                <span className="lms-item brightspace">
+                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+                   Brightspace
+                </span>
+              </div>
+            </motion.div>
+
             <motion.div className="social-proof" variants={itemVariants}>
               <div className="proof-quote">"One message a day. No app fatigue."</div>
               <div className="proof-quote">"Saved me 25% of my planning time."</div>
@@ -198,7 +238,7 @@ function Hero() {
                 </div>
                 
                 <div className="chat-messages" ref={chatContainerRef}>
-                  <AnimatePresence initial={false}>
+                  <AnimatePresence mode="wait">
                     {messages.map((msg, index) => (
                       <motion.div 
                         key={index}
