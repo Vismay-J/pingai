@@ -57,6 +57,16 @@
   align-items: center;
 }
 
+/* Hide mobile nav on desktop */
+.mobile-nav {
+  display: none;
+}
+
+/* Show desktop nav on desktop */
+.desktop-nav {
+  display: flex;
+}
+
 .nav-link {
   color: var(--color-text-secondary);
   font-weight: 500;
@@ -129,7 +139,14 @@
     display: flex;
   }
 
-  .nav {
+  /* Hide desktop nav on mobile */
+  .desktop-nav {
+    display: none;
+  }
+
+  /* Show mobile nav on mobile */
+  .mobile-nav {
+    display: flex;
     position: fixed;
     top: 0;
     left: 0;
@@ -145,7 +162,7 @@
     z-index: 999;
   }
 
-  .nav.nav-open {
+  .mobile-nav.nav-open {
     transform: translateX(0);
   }
 
