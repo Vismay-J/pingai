@@ -161,15 +161,60 @@ function Hero() {
               <span className="lms-label">Works with</span>
               <div className="lms-list">
                 <span className="lms-item canvas">
-                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v8"></path><path d="M8 12h8"></path></svg>
+                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                     <circle cx="12" cy="12" r="12" fill="#E44E3A"/>
+                     {/* Outer ring - 8 person-like shapes (simple arcs) */}
+                     <g fill="#FFFFFF">
+                       {/* Top */}
+                       <ellipse cx="12" cy="5" rx="2" ry="3" opacity="0.9"/>
+                       {/* Top-right */}
+                       <ellipse cx="17.5" cy="7.5" rx="2" ry="3" opacity="0.9" transform="rotate(45 17.5 7.5)"/>
+                       {/* Right */}
+                       <ellipse cx="19" cy="12" rx="3" ry="2" opacity="0.9"/>
+                       {/* Bottom-right */}
+                       <ellipse cx="17.5" cy="16.5" rx="2" ry="3" opacity="0.9" transform="rotate(-45 17.5 16.5)"/>
+                       {/* Bottom */}
+                       <ellipse cx="12" cy="19" rx="2" ry="3" opacity="0.9"/>
+                       {/* Bottom-left */}
+                       <ellipse cx="6.5" cy="16.5" rx="2" ry="3" opacity="0.9" transform="rotate(45 6.5 16.5)"/>
+                       {/* Left */}
+                       <ellipse cx="5" cy="12" rx="3" ry="2" opacity="0.9"/>
+                       {/* Top-left */}
+                       <ellipse cx="6.5" cy="7.5" rx="2" ry="3" opacity="0.9" transform="rotate(-45 6.5 7.5)"/>
+                     </g>
+                     {/* Inner ring - 8 dots */}
+                     <g fill="#FFFFFF">
+                       <circle cx="12" cy="5" r="1.2" opacity="0.9"/>
+                       <circle cx="19" cy="12" r="1.2" opacity="0.9"/>
+                       <circle cx="12" cy="19" r="1.2" opacity="0.9"/>
+                       <circle cx="5" cy="12" r="1.2" opacity="0.9"/>
+                       <circle cx="16.66" cy="7.34" r="1.2" opacity="0.9"/>
+                       <circle cx="16.66" cy="16.66" r="1.2" opacity="0.9"/>
+                       <circle cx="7.34" cy="16.66" r="1.2" opacity="0.9"/>
+                       <circle cx="7.34" cy="7.34" r="1.2" opacity="0.9"/>
+                     </g>
+                   </svg>
                    Canvas
                 </span>
                 <span className="lms-item blackboard">
-                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                     {/* Golden frame */}
+                     <rect x="1" y="1" width="22" height="22" rx="2" fill="#D4AF37" stroke="#B8941F" strokeWidth="0.5"/>
+                     {/* Blackboard surface */}
+                     <rect x="2.5" y="2.5" width="19" height="19" rx="1.5" fill="#1A1A1A"/>
+                     {/* Bb text */}
+                     <text x="12" y="15" fontFamily="Georgia, serif" fontSize="10" fill="#FFFFFF" textAnchor="middle" fontWeight="bold">Bb</text>
+                     {/* Dashed line */}
+                     <line x1="5" y1="17" x2="19" y2="17" stroke="#FFFFFF" strokeWidth="0.5" strokeDasharray="1,1" opacity="0.6"/>
+                   </svg>
                    Blackboard
                 </span>
                 <span className="lms-item brightspace">
-                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                     <circle cx="12" cy="12" r="12" fill="#FF8C00"/>
+                     {/* Stylized rounded B */}
+                     <path d="M8.5 6.5C8.5 6.2 8.7 6 9 6H11.5C12.3 6 13 6.7 13 7.5C13 8.1 12.6 8.6 12.2 8.8C12.6 9 13 9.4 13 9.8C13 10.6 12.3 11.3 11.5 11.3H9V16.5H8.5V6.5ZM9 7.5V9H11.5C11.8 9 12 8.8 12 8.5C12 8.2 11.8 8 11.5 8H9V7.5ZM9 10H11.5C11.8 10 12 9.8 12 9.5C12 9.2 11.8 9 11.5 9H9V10Z" fill="#FFFFFF" stroke="#FFFFFF" strokeWidth="0.3" strokeLinecap="round" strokeLinejoin="round"/>
+                   </svg>
                    Brightspace
                 </span>
               </div>
