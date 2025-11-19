@@ -4,86 +4,58 @@
 
 .faq-list {
   max-width: 800px;
-  margin: var(--space-8) auto 0;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
 }
 
 .faq-item {
-  background-color: var(--color-surface);
-  border-radius: var(--radius);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
   overflow: hidden;
-  box-shadow: var(--shadow);
+  background: rgba(255, 255, 255, 0.02);
+  transition: var(--transition);
+}
+
+.faq-item:hover {
+  border-color: rgba(124, 58, 237, 0.3);
 }
 
 .faq-question {
   width: 100%;
+  padding: var(--space-6);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--space-6);
-  background: none;
-  border: none;
   text-align: left;
-  cursor: pointer;
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: 600;
   color: var(--color-text);
-  min-height: 64px;
-  transition: background-color var(--transition);
+  cursor: pointer;
 }
 
-.faq-question:hover {
-  background-color: var(--color-bg);
-}
-
-.faq-question .faq-icon {
-  font-size: 24px;
+.faq-question.open {
   color: var(--color-accent);
-  font-weight: 300;
-  flex-shrink: 0;
-  margin-left: var(--space-4);
-  transition: transform var(--transition);
 }
 
-.faq-question.open .faq-icon {
-  transform: rotate(45deg);
+.faq-icon {
+  font-size: 1.5rem;
+  color: var(--color-primary);
 }
 
 .faq-answer {
-  max-height: 0;
+  height: 0;
   overflow: hidden;
-  transition: max-height var(--transition-slow), padding var(--transition-slow);
-  padding: 0 var(--space-6);
+  transition: height 0.3s ease;
 }
 
 .faq-answer.open {
-  max-height: 500px;
-  padding: 0 var(--space-6) var(--space-6);
+  height: auto;
 }
 
 .faq-answer p {
-  color: var(--color-muted);
-  line-height: 1.7;
-  margin: 0;
-  font-size: 16px;
+  padding: 0 var(--space-6) var(--space-6);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
 }
-
-@media (max-width: 768px) {
-  .faq-question {
-    font-size: 16px;
-    padding: var(--space-4);
-    min-height: 56px;
-  }
-
-  .faq-answer {
-    padding: 0 var(--space-4);
-  }
-
-  .faq-answer.open {
-    padding: 0 var(--space-4) var(--space-4);
-  }
-}
-
-

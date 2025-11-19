@@ -1,91 +1,74 @@
 .how {
-  background-color: var(--color-bg);
+  background-color: var(--color-surface);
 }
 
 .steps-container {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   gap: var(--space-8);
-  margin-top: var(--space-8);
+  margin-top: var(--space-12);
   position: relative;
 }
 
 .step {
-  display: flex;
-  gap: var(--space-6);
-  align-items: flex-start;
+  flex: 1;
   position: relative;
-  background-color: var(--color-surface);
-  padding: var(--space-6);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  transition: transform var(--transition);
-}
-
-.step:hover {
-  transform: scale(1.01);
+  z-index: 1;
+  text-align: center;
 }
 
 .step-number {
-  width: 56px;
-  height: 56px;
-  background: linear-gradient(135deg, var(--color-accent), var(--color-accent-600));
-  color: white;
+  width: 60px;
+  height: 60px;
+  background: var(--color-surface);
+  border: 2px solid var(--color-primary);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 700;
-  flex-shrink: 0;
+  color: var(--color-primary);
+  margin: 0 auto var(--space-6);
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.2);
+  transition: var(--transition);
 }
 
-.step-content {
-  flex: 1;
+.step:hover .step-number {
+  background: var(--color-primary);
+  color: white;
+  transform: scale(1.1);
 }
 
 .step-title {
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-size: 1.25rem;
+  margin-bottom: var(--space-3);
   color: var(--color-text);
-  margin-bottom: var(--space-2);
 }
 
 .step-description {
-  color: var(--color-muted);
-  line-height: 1.7;
-  font-size: 16px;
+  color: var(--color-text-secondary);
+  font-size: 1rem;
 }
 
 .step-connector {
   position: absolute;
-  left: 28px;
-  top: 80px;
-  width: 2px;
-  height: calc(100% + var(--space-8));
-  background: linear-gradient(180deg, var(--color-accent), transparent);
-  z-index: 0;
+  top: 30px;
+  left: 50%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-primary), transparent);
+  z-index: -1;
+  opacity: 0.3;
 }
 
 @media (max-width: 768px) {
   .steps-container {
-    gap: var(--space-6);
-  }
-
-  .step {
     flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: var(--space-6);
+    gap: var(--space-12);
   }
 
   .step-connector {
     display: none;
   }
-
-  .step-number {
-    margin-bottom: var(--space-4);
-  }
 }
-
-
