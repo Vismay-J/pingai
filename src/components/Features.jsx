@@ -1,31 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React from 'react'
+import { motion } from 'framer-motion'
 import './Features.css'
 
 function Features() {
-  const [isVisible, setIsVisible] = useState(false)
-  const sectionRef = useRef(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
-      },
-      { threshold: 0.1 }
-    )
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current)
-      }
-    }
-  }, [])
-
   const features = [
     {
       icon: '📅',
@@ -49,21 +26,42 @@ function Features() {
     }
   ]
 
+  const handleMouseMove = (e) => {
+    const cards = document.getElementsByClassName('feature-card')
+    for (const card of cards) {
+      const rect = card.getBoundingClientRect()
+      const x = e.clientX - rect.left
+      const y = e.clientY - rect.top
+      card.style.setProperty('--mouse-x', `${x}px`)
+      card.style.setProperty('--mouse-y', `${y}px`)
+    }
+  }
+
   return (
-    <section id="features" className="features section" ref={sectionRef}>
+    <section id="features" className="features section" onMouseMove={handleMouseMove}>
       <div className="container">
-        <h2 className="section-title">Features</h2>
-        <div className={`features-grid ${isVisible ? 'visible' : ''}`}>
+        <motion.h2 
+          className="section-title"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          Features
+        </motion.h2>
+        <div className="features-grid">
           {features.map((feature, index) => (
-            <div 
+            <motion.div 
               key={index} 
               className="feature-card"
-              style={{ animationDelay: `${index * 100}ms` }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
             >
               <div className="feature-icon">{feature.icon}</div>
               <h3 className="feature-title">{feature.title}</h3>
               <p className="feature-description">{feature.description}</p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -72,5 +70,3 @@ function Features() {
 }
 
 export default Features
-
-

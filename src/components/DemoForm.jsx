@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { motion } from 'framer-motion'
 import { trackWaitlistSubmit, trackFormSubmit } from '../utils/analytics'
 import { getStoredPricingModel } from '../utils/pricingModel'
 import { submitWaitlistEntry } from '../utils/waitlist'
@@ -16,10 +17,7 @@ function DemoForm() {
   const [errorMessage, setErrorMessage] = useState('')
 
   const validatePhone = (phone) => {
-    // Remove all non-digit characters for validation
     const digitsOnly = phone.replace(/\D/g, '')
-    // Must have at least 10 digits (US phone number minimum)
-    // Allow up to 15 digits (international format)
     return digitsOnly.length >= 10 && digitsOnly.length <= 15
   }
 
@@ -27,7 +25,6 @@ function DemoForm() {
     const { name, value, type, checked } = e.target
     const fieldValue = type === 'checkbox' ? checked : value
     setFormData({ ...formData, [name]: fieldValue })
-    // Clear error when user starts typing
     if (errors[name]) {
       setErrors({ ...errors, [name]: '' })
     }
@@ -36,7 +33,6 @@ function DemoForm() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     
-    // Validation
     const newErrors = {}
     if (!formData.emailOrPhone.trim()) {
       newErrors.emailOrPhone = 'Phone number is required'
@@ -59,12 +55,10 @@ function DemoForm() {
     setIsSubmitting(true)
     setErrorMessage('')
     
-    // Track waitlist submission with pricing model context
     const pricingModel = getStoredPricingModel()
     const hasPhone = !!formData.emailOrPhone.trim()
     const hasName = !!formData.name.trim()
     
-    // Get selected plan from sessionStorage (set when user clicks pricing button)
     const selectedPlan = typeof window !== 'undefined' 
       ? sessionStorage.getItem('selected_plan') 
       : null
@@ -78,7 +72,7 @@ function DemoForm() {
         name: formData.name || '',
         source: 'website-waitlist',
         consent: formData.consent,
-        pricingModel: pricingModel // Also send to backend for tracking
+        pricingModel: pricingModel
       })
 
       setIsSuccess(true)
@@ -95,9 +89,31 @@ function DemoForm() {
   return (
     <section id="waitlist" className="demo section">
       <div className="container">
-        <h2 className="section-title">Join the waitlist</h2>
-        <p className="demo-helper">Be first to know when we launch.</p>
-        <form className="demo-form" onSubmit={handleSubmit}>
+        <motion.h2 
+          className="section-title"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          Join the waitlist
+        </motion.h2>
+        <motion.p 
+          className="demo-helper"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1 }}
+        >
+          Be first to know when we launch.
+        </motion.p>
+        <motion.form 
+          className="demo-form" 
+          onSubmit={handleSubmit}
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+        >
           <div className="form-group">
             <label htmlFor="emailOrPhone">
               Phone Number <span className="required">*</span>
@@ -155,9 +171,14 @@ function DemoForm() {
           </div>
 
           {isSuccess && (
-            <div className="success-message" role="alert">
+            <motion.div 
+              className="success-message" 
+              role="alert"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+            >
               You're on the list. We'll be in touch soon.
-            </div>
+            </motion.div>
           )}
           {errorMessage && (
             <div className="error-message" role="alert">
@@ -165,15 +186,19 @@ function DemoForm() {
             </div>
           )}
 
-          <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+          <motion.button 
+            type="submit" 
+            className="btn btn-primary" 
+            disabled={isSubmitting}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
             {isSubmitting ? 'Joining...' : 'Join waitlist'}
-          </button>
-        </form>
+          </motion.button>
+        </motion.form>
       </div>
     </section>
   )
 }
 
 export default DemoForm
-
-

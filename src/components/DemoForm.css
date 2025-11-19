@@ -1,11 +1,22 @@
 .demo {
-  background-color: var(--color-surface);
+  background-color: var(--color-bg);
+  position: relative;
+}
+
+.demo::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
 }
 
 .demo-helper {
   text-align: center;
-  color: var(--color-muted);
-  font-size: 16px;
+  color: var(--color-text-secondary);
+  font-size: 1.125rem;
   max-width: 600px;
   margin: 0 auto var(--space-8);
   line-height: 1.6;
@@ -14,10 +25,12 @@
 .demo-form {
   max-width: 500px;
   margin: 0 auto;
-  background-color: var(--color-surface);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   padding: var(--space-8);
-  border-radius: var(--radius);
+  border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(10px);
 }
 
 .form-group {
@@ -29,7 +42,7 @@
   font-weight: 600;
   color: var(--color-text);
   margin-bottom: var(--space-2);
-  font-size: 16px;
+  font-size: 0.95rem;
 }
 
 .required {
@@ -39,36 +52,39 @@
 .form-group input {
   width: 100%;
   padding: 14px;
-  border: 2px solid var(--border-color);
-  border-radius: var(--radius);
-  font-size: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  font-size: 1rem;
   font-family: inherit;
-  transition: border-color var(--transition);
-  background-color: var(--color-surface);
+  transition: var(--transition);
+  background-color: rgba(0, 0, 0, 0.2);
   color: var(--color-text);
 }
 
 .form-group input:focus {
   outline: none;
-  border-color: var(--color-accent);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.2);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
-.form-group input:invalid:not(:focus):not(:placeholder-shown) {
-  border-color: #EF4444;
+.form-group input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
 }
 
 .error-message {
   display: block;
   color: #EF4444;
-  font-size: 14px;
+  font-size: 0.875rem;
   margin-top: var(--space-2);
 }
 
 .success-message {
-  background-color: var(--color-success);
-  color: white;
+  background: rgba(16, 185, 129, 0.1);
+  color: #34D399;
+  border: 1px solid rgba(16, 185, 129, 0.2);
   padding: var(--space-4);
-  border-radius: var(--radius);
+  border-radius: var(--radius-md);
   margin-bottom: var(--space-4);
   text-align: center;
   font-weight: 500;
@@ -77,7 +93,8 @@
 .demo-form .btn {
   width: 100%;
   padding: 16px;
-  font-size: 16px;
+  font-size: 1rem;
+  margin-top: var(--space-2);
 }
 
 .demo-form .btn:disabled {
@@ -92,30 +109,35 @@
 }
 
 .checkbox-group input[type="checkbox"] {
-  width: auto;
-  margin-top: 4px;
+  width: 18px;
+  height: 18px;
+  margin-top: 3px;
   flex-shrink: 0;
   cursor: pointer;
-  accent-color: var(--color-accent);
+  accent-color: var(--color-primary);
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .checkbox-label {
   font-weight: 400;
-  font-size: 14px;
+  font-size: 0.875rem;
   line-height: 1.5;
-  color: var(--color-text);
+  color: var(--color-text-secondary);
   cursor: pointer;
   margin-bottom: 0;
 }
 
 .checkbox-label a {
   color: var(--color-accent);
-  text-decoration: underline;
-  transition: color var(--transition);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: var(--transition);
 }
 
 .checkbox-label a:hover {
-  color: var(--color-accent-600);
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
 }
 
 @media (max-width: 768px) {
@@ -123,5 +145,3 @@
     padding: var(--space-6);
   }
 }
-
-
