@@ -32,7 +32,7 @@ function Footer() {
           <div className="footer-section">
             <h3 className="footer-logo">Ping</h3>
             <p className="footer-description">
-              SMS-first assistant for college students, clubs, TAs, and departments.
+              SMS-first assistant for college students, TAs, and departments.
             </p>
           </div>
           <div className="footer-section">

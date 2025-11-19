@@ -11,7 +11,7 @@ function HowItWorks() {
     {
       number: '2',
       title: 'Get one daily text',
-      description: 'At 8AM, Ping sends "what matters today" and any last-minute changes.'
+      description: 'At 8AM, Ping sends "what matters today". When there are changes in your class LMS, you get a text or a user update.'
     },
     {
       number: '3',

@@ -39,8 +39,13 @@ function Features() {
     },
     {
       icon: '💬',
-      title: 'SMS Actions & Club Ops',
+      title: 'SMS Actions',
       description: 'Reply to RSVP Y/N, "book #2", "status" for headcount and open roles, or start office-hours queues (JOIN, position, next-up)—all by text.'
+    },
+    {
+      icon: '📋',
+      title: 'Personal Planning Sheets',
+      description: 'Upload your personal planning sheets to sync up to your personalization. Keep your custom schedules and preferences in perfect alignment.'
     }
   ]
 

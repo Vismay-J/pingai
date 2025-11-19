@@ -15,7 +15,7 @@ function ValueTeam() {
           <div className="team-block">
             <h2 className="block-title">Built by a campus-ready team</h2>
             <p className="block-text">
-              Product designers, full-stack engineers, and growth operators who've shipped campus tools. We stand up a Twilio-powered pilot in days and iterate on live usage. Source-linked updates, quiet hours by default, and accuracy guardrails—no guessing, ever.
+              Product designers, full-stack engineers, and growth operators who've shipped campus tools. We stand up a text-powered pilot in days and iterate on live usage. Source-linked updates, quiet hours by default, and accuracy guardrails—no guessing, ever.
             </p>
           </div>
         </div>

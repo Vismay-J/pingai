@@ -22,7 +22,7 @@ function Hero() {
           <div className="hero-text">
             <div className="social-proof">
               <div className="proof-quote">"One message a day. No app fatigue."</div>
-              <div className="proof-quote">"Saved me 30–45 minutes this week."</div>
+              <div className="proof-quote">"Saved me 25% of my planning time this week."</div>
               <div className="proof-quote">"Our no-shows dropped 18%."</div>
             </div>
             
@@ -32,6 +32,10 @@ function Hero() {
             
             <p className="hero-description">
               Ping syncs your LMS to your calendar and turns updates into quick actions—RSVP, book, "leave now"—right from SMS. No new app to manage.
+            </p>
+            
+            <p className="hero-description hero-highlight">
+              Turn quick texts into scheduled events and ready-to-send emails with one tap.
             </p>
             
             <div className="hero-buttons">
@@ -72,7 +76,7 @@ function Hero() {
                       <strong>Today:</strong><br />
                       • CS101 Lecture @ 10am<br />
                       • Math Quiz due @ 5pm<br />
-                      • Club meeting @ 7pm
+                      • Study group @ 7pm
                     </div>
                   </div>
                 </div>
@@ -88,6 +92,20 @@ function Hero() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+        
+        <div className="hero-video-section">
+          <h3 className="video-section-title">See how Ping works</h3>
+          <div className="video-container">
+            <iframe
+              className="demo-video"
+              src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+              title="Ping Demo Video"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
           </div>
         </div>
       </div>
