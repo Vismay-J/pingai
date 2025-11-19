@@ -28,16 +28,12 @@ function Impact() {
 
   const metrics = [
     {
-      value: '30–45 minutes',
+      value: '25–30%',
       label: 'time saved per student each week by eliminating manual updates'
     },
     {
       value: '+15–20%',
-      label: 'higher RSVP rate for clubs using Y/N + auto-nudges'
-    },
-    {
-      value: 'Shorter queues',
-      label: 'office-hours waits go down with JOIN, position, next-up by SMS'
+      label: 'higher engagement rate using Y/N + auto-nudges'
     }
   ]
 

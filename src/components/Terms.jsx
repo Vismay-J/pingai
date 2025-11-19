@@ -19,7 +19,7 @@ function Terms() {
           <section>
             <h2>2. Description of Service</h2>
             <p>
-              Ping is an SMS-first assistant service designed for college students, clubs, teaching assistants, and departments. The Service provides calendar synchronization, event notifications, RSVP management, and automated reminders via SMS.
+              Ping is an SMS-first assistant service designed for college students, teaching assistants, and departments. The Service provides calendar synchronization, event notifications, RSVP management, and automated reminders via SMS.
             </p>
           </section>
 

@@ -13,8 +13,8 @@ function FAQ() {
     },
     {
       id: '2',
-      question: 'Can it help with club events?',
-      answer: 'Yes—RSVP by text, auto-nudges to non-responders, volunteer shift confirmations, and "status" headcounts.'
+      question: 'How do I get notified about changes?',
+      answer: 'When there are changes in your class LMS, you get a text or a user update. Ping automatically syncs updates and sends you instant notifications.'
     },
     {
       id: '3',
@@ -24,7 +24,7 @@ function FAQ() {
     {
       id: '4',
       question: 'Who is Ping for?',
-      answer: 'Students, clubs, TAs, and departments that want fewer misses and higher engagement without more apps.'
+      answer: 'Students, TAs, and departments that want fewer misses and higher engagement without more apps.'
     }
   ]
 

@@ -1,5 +1,5 @@
 /**
- * Ping - SMS-first assistant for college students, clubs, TAs, and departments
+ * Ping - SMS-first assistant for college students, TAs, and departments
  * 
  * To customize:
  * - Brand colors: Edit CSS variables in src/index.css (:root)

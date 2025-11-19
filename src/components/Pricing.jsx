@@ -103,7 +103,7 @@ function Pricing() {
       <div className="container">
         <h2 className="section-title">Pricing</h2>
         <p className="pricing-subtitle">
-          Each credit saves you ~15 minutes of manual scheduling.
+          Each credit saves you ~20% of manual scheduling time.
         </p>
         <div className="pricing-grid">
           {pricingPlans.map((plan, index) => (
