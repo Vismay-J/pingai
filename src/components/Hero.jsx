@@ -7,6 +7,7 @@ function Hero() {
   const [messages, setMessages] = useState([])
   const [isTyping, setIsTyping] = useState(false)
   const messagesEndRef = useRef(null)
+  const chatContainerRef = useRef(null)
 
   const scenarios = [
     [
@@ -35,10 +36,14 @@ function Hero() {
     ]
   ]
 
-  // Auto-scroll to bottom
+  // Auto-scroll chat container to bottom
   useEffect(() => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' })
+    if (chatContainerRef.current) {
+      const scrollHeight = chatContainerRef.current.scrollHeight
+      chatContainerRef.current.scrollTo({
+        top: scrollHeight,
+        behavior: 'smooth'
+      })
     }
   }, [messages, isTyping])
 
@@ -192,7 +197,7 @@ function Hero() {
                   </div>
                 </div>
                 
-                <div className="chat-messages">
+                <div className="chat-messages" ref={chatContainerRef}>
                   <AnimatePresence initial={false}>
                     {messages.map((msg, index) => (
                       <motion.div 
@@ -224,7 +229,6 @@ function Hero() {
                       <span className="dot"></span>
                     </motion.div>
                   )}
-                  <div ref={messagesEndRef} />
                 </div>
                 
                 <div className="chat-input-area">
