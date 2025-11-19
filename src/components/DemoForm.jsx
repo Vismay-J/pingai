@@ -160,7 +160,7 @@ function DemoForm() {
                 aria-describedby={errors.consent ? 'consent-error' : undefined}
               />
               <label htmlFor="consent" className="checkbox-label">
-                I have read the <a href="#terms" onClick={(e) => { e.preventDefault(); window.location.hash = 'terms'; window.scrollTo(0, 0); }}>terms and conditions</a> and consent to receive text messages from Ping. <span className="required">*</span>
+                By submitting my phone number, I agree to receive automated text messages from Ping related to reminders, calendar updates, and account notifications. Message & data rates may apply. Message frequency varies. Reply STOP to unsubscribe, HELP for help. View our <a href="#terms" onClick={(e) => { e.preventDefault(); window.location.hash = 'terms'; window.scrollTo(0, 0); }}>Terms</a> and <a href="#privacy" onClick={(e) => { e.preventDefault(); window.location.hash = 'privacy'; window.scrollTo(0, 0); }}>Privacy Policy</a>. <span className="required">*</span>
               </label>
             </div>
             {errors.consent && (
