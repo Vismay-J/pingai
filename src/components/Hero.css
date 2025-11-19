@@ -92,13 +92,14 @@
 }
 
 .lms-item svg {
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
 }
 
-.lms-item.canvas { color: #E44E3A; }
-.lms-item.blackboard { color: #FDB913; } /* Yellowish for Blackboard Learn */
-.lms-item.brightspace { color: #E87511; } /* Orange */
+.lms-item {
+  color: var(--text-primary);
+}
 
 .hero-title {
   font-size: 3.5rem;
