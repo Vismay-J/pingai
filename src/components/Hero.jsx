@@ -212,8 +212,8 @@ function Hero() {
                 <span className="lms-item brightspace">
                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                      <circle cx="12" cy="12" r="12" fill="#E87511"/>
-                     {/* Official D2L Brightspace 'b' shape */}
-                     <path fillRule="evenodd" clipRule="evenodd" d="M7 5V19H11.5C14.5 19 16.5 17 16.5 14.5C16.5 12 14.5 10 11.5 10H10V5H7ZM10 12H11.5C12.8 12 13.5 13 13.5 14.5C13.5 16 12.8 17 11.5 17H10V12Z" fill="#FFFFFF"/>
+                     {/* Capital B shape */}
+                     <path d="M7 5V19H11C13.2 19 15 17.2 15 15C15 13.3 13.9 11.9 12.4 11.3C13.9 10.7 15 9.3 15 7.5C15 5.3 13.2 3.5 11 3.5H7V5ZM9 5.5V10H11C12.1 10 13 9.1 13 8C13 6.9 12.1 6 11 6H9V5.5ZM9 11.5V17H11C12.1 17 13 16.1 13 15C13 13.9 12.1 13 11 13H9V11.5Z" fill="#FFFFFF"/>
                    </svg>
                    Brightspace
                 </span>
