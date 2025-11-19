@@ -213,7 +213,7 @@ function Hero() {
                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                      <circle cx="12" cy="12" r="12" fill="#E87511"/>
                      {/* Official D2L Brightspace 'b' shape */}
-                     <path d="M8 6V18H10.5C12.5 18 14 17.5 15 16.5C16 15.5 16.5 14 16.5 12C16.5 10 16 8.5 15 7.5C14 6.5 12.5 6 10.5 6H8ZM10.5 15.5H10V8.5H10.5C11.5 8.5 12 9 12.5 9.5C13 10 13.5 11 13.5 12C13.5 13 13 14 12.5 14.5C12 15 11.5 15.5 10.5 15.5Z" fill="#FFFFFF"/>
+                     <path fillRule="evenodd" clipRule="evenodd" d="M7 5V19H11.5C14.5 19 16.5 17 16.5 14.5C16.5 12 14.5 10 11.5 10H10V5H7ZM10 12H11.5C12.8 12 13.5 13 13.5 14.5C13.5 16 12.8 17 11.5 17H10V12Z" fill="#FFFFFF"/>
                    </svg>
                    Brightspace
                 </span>
