@@ -344,7 +344,7 @@
 }
 
 .chat-input-area {
-  padding: 15px 15px 30px; /* Increased bottom padding */
+  padding: 15px 15px 45px; /* Increased bottom padding to avoid cutoff */
   background: #000;
   display: flex;
   align-items: center;
@@ -379,7 +379,7 @@
 
 .phone-home-indicator {
   position: absolute;
-  bottom: 8px;
+  bottom: 12px;
   left: 50%;
   transform: translateX(-50%);
   width: 40%;
