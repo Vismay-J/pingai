@@ -211,9 +211,9 @@ function Hero() {
                 </span>
                 <span className="lms-item brightspace">
                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                     <circle cx="12" cy="12" r="12" fill="#FF8C00"/>
-                     {/* Stylized rounded B */}
-                     <path d="M8.5 6.5C8.5 6.2 8.7 6 9 6H11.5C12.3 6 13 6.7 13 7.5C13 8.1 12.6 8.6 12.2 8.8C12.6 9 13 9.4 13 9.8C13 10.6 12.3 11.3 11.5 11.3H9V16.5H8.5V6.5ZM9 7.5V9H11.5C11.8 9 12 8.8 12 8.5C12 8.2 11.8 8 11.5 8H9V7.5ZM9 10H11.5C11.8 10 12 9.8 12 9.5C12 9.2 11.8 9 11.5 9H9V10Z" fill="#FFFFFF" stroke="#FFFFFF" strokeWidth="0.3" strokeLinecap="round" strokeLinejoin="round"/>
+                     <circle cx="12" cy="12" r="12" fill="#E87511"/>
+                     {/* Official D2L Brightspace 'b' shape */}
+                     <path d="M8 6V18H10.5C12.5 18 14 17.5 15 16.5C16 15.5 16.5 14 16.5 12C16.5 10 16 8.5 15 7.5C14 6.5 12.5 6 10.5 6H8ZM10.5 15.5H10V8.5H10.5C11.5 8.5 12 9 12.5 9.5C13 10 13.5 11 13.5 12C13.5 13 13 14 12.5 14.5C12 15 11.5 15.5 10.5 15.5Z" fill="#FFFFFF"/>
                    </svg>
                    Brightspace
                 </span>
@@ -320,6 +320,7 @@ function Hero() {
                   <div className="chat-input-placeholder">iMessage</div>
                   <div className="chat-send-btn">↑</div>
                 </div>
+                <div className="phone-home-indicator"></div>
               </div>
             </div>
           </motion.div>
