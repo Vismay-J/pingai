@@ -32,18 +32,22 @@ function Pricing() {
 
   // Average usage metrics (based on typical user behavior)
   const usageMetrics = {
-    light: { creditsPerDay: 1, creditsPerMonth: 30, description: 'Light users (1-2 scheduling actions/day)' },
-    moderate: { creditsPerDay: 3, creditsPerMonth: 90, description: 'Moderate users (3-5 scheduling actions/day)' },
-    heavy: { creditsPerDay: 6, creditsPerMonth: 180, description: 'Heavy users (6+ scheduling actions/day)' }
+    light: { creditsPerDay: 2, creditsPerMonth: 60, description: 'Light users (2-3 scheduling actions/day)' },
+    moderate: { creditsPerDay: 4, creditsPerMonth: 120, description: 'Moderate users (4-6 scheduling actions/day)' },
+    heavy: { creditsPerDay: 8, creditsPerMonth: 240, description: 'Heavy users (8+ scheduling actions/day)' }
   }
 
   // Calculate cost comparison
   const calculateCreditCost = (creditsPerMonth) => {
-    // Best credit package for given usage
+    // Best credit package for given usage (optimized for monthly cost)
     if (creditsPerMonth <= 20) return { package: 'Starter Pack', cost: 4, credits: 20, months: 1 }
     if (creditsPerMonth <= 60) return { package: 'Smart Saver Pack', cost: 8, credits: 60, months: 1 }
+    if (creditsPerMonth <= 120) {
+      // For 120 credits/month, buy 2 Smart Saver Packs (120 credits for $16) or 1 Power Pack (150 credits for $15)
+      return { package: 'Power Pack', cost: 15, credits: 150, months: 1 }
+    }
     if (creditsPerMonth <= 150) return { package: 'Power Pack', cost: 15, credits: 150, months: 1 }
-    // For 300 credits, use Semester Pack
+    // For 240 credits/month, use Semester Pack (300 credits for $25)
     if (creditsPerMonth <= 300) return { package: 'Semester Pack', cost: 25, credits: 300, months: 1 }
     // For higher usage, calculate based on best per-credit rate
     const semesterPacks = Math.ceil(creditsPerMonth / 300)
@@ -173,7 +177,9 @@ function Pricing() {
           <div className="comparison-metrics">
             {Object.entries(usageMetrics).map(([key, metric]) => {
               const creditCost = calculateCreditCost(metric.creditsPerMonth)
-              const monthlyCreditCost = creditCost.cost / creditCost.months
+              // Calculate effective monthly cost (cost divided by how many months the credits last)
+              const creditsLastMonths = creditCost.credits / metric.creditsPerMonth
+              const monthlyCreditCost = creditCost.cost / creditsLastMonths
               const subscriptionMonthly = 8
               const subscriptionYearly = 72 / 12 // $6/month
               
