@@ -1,31 +1,30 @@
-// Utility to detect which pricing model is active (for A/B testing tracking)
-// This detects based on the pricing structure in the component
+// Utility to detect which pricing model is active (for tracking)
+// Now both models are shown, so this detects which one the user interacts with
 
 export const getPricingModel = () => {
-  // Check if we're on subscription model by looking for subscription-specific elements
-  // or we can use a more reliable method: check the pricing subtitle
   const pricingSection = document.querySelector('#pricing')
   if (!pricingSection) return 'unknown'
   
-  const subtitle = pricingSection.querySelector('.pricing-subtitle')
-  if (subtitle) {
-    const text = subtitle.textContent.toLowerCase()
-    if (text.includes('simple, transparent pricing') || text.includes('cancel anytime')) {
-      return 'subscription'
-    }
-    if (text.includes('credit') || text.includes('saves you')) {
-      return 'credits'
-    }
+  // Check if both models are present (new structure)
+  const creditsGrid = pricingSection.querySelector('.credits-grid')
+  const subscriptionGrid = pricingSection.querySelector('.subscription-grid')
+  
+  if (creditsGrid && subscriptionGrid) {
+    return 'both' // Both models are available
   }
   
   // Fallback: check for subscription grid class
-  const grid = pricingSection.querySelector('.subscription-grid')
-  if (grid) {
+  if (subscriptionGrid) {
     return 'subscription'
   }
   
-  // Default to credits if we can't determine
-  return 'credits'
+  // Fallback: check for credits grid
+  if (creditsGrid) {
+    return 'credits'
+  }
+  
+  // Default to both if we can't determine (new default)
+  return 'both'
 }
 
 // Store pricing model in sessionStorage when pricing section is viewed

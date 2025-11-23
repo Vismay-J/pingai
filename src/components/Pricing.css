@@ -12,12 +12,205 @@
   margin-right: auto;
 }
 
+/* Comparison Metrics Section */
+.pricing-comparison {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  margin-bottom: var(--space-12);
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.comparison-title {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: var(--space-6);
+  color: var(--color-text);
+}
+
+.comparison-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  margin-bottom: var(--space-6);
+}
+
+.metric-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  transition: var(--transition);
+}
+
+.metric-card:hover {
+  border-color: rgba(124, 58, 237, 0.3);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.metric-header {
+  margin-bottom: var(--space-4);
+}
+
+.metric-header h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+  color: var(--color-text);
+}
+
+.metric-usage {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+.metric-value {
+  font-weight: 700;
+  color: var(--color-accent);
+  font-size: 1rem;
+}
+
+.metric-label {
+  color: var(--color-text-secondary);
+}
+
+.metric-separator {
+  color: var(--color-text-secondary);
+  opacity: 0.5;
+}
+
+.metric-comparison {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+  padding: var(--space-4);
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: var(--radius-sm);
+}
+
+.comparison-option {
+  flex: 1;
+  text-align: center;
+}
+
+.option-label {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-2);
+  font-weight: 600;
+}
+
+.option-cost {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--space-1);
+}
+
+.option-package {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+
+.option-savings {
+  font-size: 0.75rem;
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+.comparison-vs {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  padding: 0 var(--space-2);
+}
+
+.metric-recommendation {
+  text-align: center;
+  padding-top: var(--space-3);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.recommend-badge {
+  display: inline-block;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.recommend-badge.credits {
+  background: rgba(16, 185, 129, 0.2);
+  color: #34D399;
+}
+
+.recommend-badge.subscription {
+  background: rgba(124, 58, 237, 0.2);
+  color: #A78BFA;
+}
+
+.comparison-note {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  font-style: italic;
+  margin-top: var(--space-4);
+}
+
+/* Two-Column Layout for Pricing Models */
+.pricing-models-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-8);
+  max-width: 1400px;
+  margin: 0 auto;
+  margin-bottom: var(--space-8);
+}
+
+.pricing-model-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.model-header {
+  margin-bottom: var(--space-6);
+  text-align: center;
+}
+
+.model-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+  color: var(--color-text);
+}
+
+.model-description {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
 .pricing-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: 1fr;
   gap: var(--space-6);
-  max-width: 1200px;
-  margin: 0 auto;
+}
+
+.credits-grid {
+  max-width: 100%;
+}
+
+.subscription-grid {
+  max-width: 100%;
 }
 
 .pricing-card {
@@ -135,11 +328,6 @@
 }
 
 /* Subscription Grid Specifics */
-.subscription-grid {
-  max-width: 900px;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-}
-
 .original-price {
   text-decoration: line-through;
   color: var(--color-text-secondary);
@@ -154,4 +342,54 @@
   border-radius: var(--radius-sm);
   font-size: 0.75rem;
   margin-left: auto;
+}
+
+.monthly-equivalent {
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--color-accent);
+  font-weight: 600;
+  margin-bottom: var(--space-4);
+  padding: var(--space-2);
+  background: rgba(124, 58, 237, 0.1);
+  border-radius: var(--radius-sm);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .pricing-models-container {
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
+  }
+
+  .pricing-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+
+  .metric-comparison {
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .comparison-vs {
+    padding: var(--space-2) 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .comparison-metrics {
+    gap: var(--space-4);
+  }
+
+  .metric-card {
+    padding: var(--space-4);
+  }
+
+  .pricing-comparison {
+    padding: var(--space-6);
+  }
+
+  .model-title {
+    font-size: 1.5rem;
+  }
 }
