@@ -70,7 +70,7 @@
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--radius-lg);
-  padding: var(--space-10);
+  padding: var(--space-12);
   width: 100%;
   text-align: center;
   transition: var(--transition);
@@ -110,10 +110,16 @@
   font-weight: 600;
   box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
   white-space: nowrap;
+  z-index: 1;
 }
 
 .plan-header {
   margin-bottom: var(--space-6);
+  padding-top: var(--space-2);
+}
+
+.pricing-card-simple.popular .plan-header {
+  padding-top: var(--space-4);
 }
 
 .plan-name {
@@ -217,7 +223,11 @@
 
 @media (max-width: 480px) {
   .pricing-card-simple {
-    padding: var(--space-8);
+    padding: var(--space-10);
+  }
+  
+  .pricing-card-simple.popular .plan-header {
+    padding-top: var(--space-3);
   }
   
   .price-amount {
