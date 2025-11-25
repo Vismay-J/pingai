@@ -56,6 +56,41 @@ function Pricing() {
     }
   }
 
+  const subscriptionPlans = [
+    {
+      name: 'Monthly',
+      price: '$8',
+      period: '/month',
+      originalPrice: null,
+      savings: null,
+      monthlyEquivalent: '$8',
+      description: 'Perfect for flexible usage. Cancel anytime, no long-term commitment.',
+      features: [
+        'Unlimited AI scheduling',
+        'Real-time LMS sync',
+        'Daily digest & alerts',
+        'Cancel anytime'
+      ],
+      popular: false
+    },
+    {
+      name: 'Yearly',
+      price: '$72',
+      period: '/year',
+      originalPrice: '$96',
+      savings: 'Save 25%',
+      monthlyEquivalent: '$6/month',
+      description: 'Best value for committed users. Get 2 months free with annual billing.',
+      features: [
+        'Everything in Monthly',
+        '2 months free',
+        'Unlimited everything',
+        'Cancel anytime'
+      ],
+      popular: true
+    }
+  ]
+
   const creditPackages = [
     {
       name: 'Starter Pack',
@@ -134,7 +169,7 @@ function Pricing() {
             className={`toggle-btn ${billingType === 'subscription' ? 'active' : ''}`}
             onClick={() => handleToggle('subscription')}
           >
-            Monthly
+            Subscription
           </button>
           <button 
             className={`toggle-btn ${billingType === 'credits' ? 'active' : ''}`}
@@ -146,37 +181,56 @@ function Pricing() {
 
         {/* Pricing Cards */}
         {billingType === 'subscription' ? (
-          <div className="pricing-simple-grid">
-            <motion.div 
-              className="pricing-card-simple featured"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3 }}
-            >
-              <div className="plan-header">
-                <h3 className="plan-name">Unlimited</h3>
-                <div className="plan-price">
-                  <span className="price-amount">$8</span>
-                  <span className="price-period">/month</span>
-                </div>
-              </div>
-              <p className="plan-description">
-                Unlimited scheduling, syncing, and reminders. No limits, no surprises.
-              </p>
-              <ul className="plan-features-simple">
-                <li>Unlimited AI scheduling</li>
-                <li>Real-time LMS sync</li>
-                <li>Daily digest & alerts</li>
-                <li>Cancel anytime</li>
-              </ul>
-              <a
-                href="#waitlist"
-                className="btn btn-primary"
-                onClick={() => handlePricingClick('Monthly Unlimited', '$8', 'subscription')}
+          <div className="pricing-subscription-grid">
+            {subscriptionPlans.map((plan, index) => (
+              <motion.div 
+                key={index}
+                className={`pricing-card-simple ${plan.popular ? 'popular' : ''}`}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
               >
-                Join Waitlist
-              </a>
-            </motion.div>
+                {plan.popular && (
+                  <div className="popular-badge">Most Popular</div>
+                )}
+                <div className="plan-header">
+                  <h3 className="plan-name">{plan.name}</h3>
+                  <div className="plan-price">
+                    <span className="price-amount">{plan.price}</span>
+                    <span className="price-period">{plan.period}</span>
+                    {plan.originalPrice && (
+                      <>
+                        <span className="original-price">{plan.originalPrice}</span>
+                        {plan.savings && (
+                          <span className="savings-badge">{plan.savings}</span>
+                        )}
+                      </>
+                    )}
+                  </div>
+                  {plan.monthlyEquivalent && (
+                    <div className="monthly-equivalent">
+                      {plan.monthlyEquivalent}
+                    </div>
+                  )}
+                </div>
+                <p className="plan-description">
+                  {plan.description}
+                </p>
+                <ul className="plan-features-simple">
+                  {plan.features.map((feature, idx) => (
+                    <li key={idx}>{feature}</li>
+                  ))}
+                </ul>
+                <a
+                  href="#waitlist"
+                  className={`btn ${plan.popular ? 'btn-primary' : 'btn-secondary'}`}
+                  onClick={() => handlePricingClick(`${plan.name} Subscription`, plan.price, 'subscription')}
+                >
+                  Join Waitlist
+                </a>
+              </motion.div>
+            ))}
           </div>
         ) : (
           <div className="pricing-credits-grid">
