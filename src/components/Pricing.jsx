@@ -40,8 +40,8 @@ function Pricing() {
     }
   }
 
-  const handlePricingClick = (planName, planPrice, type) => {
-    console.log('🔘 Pricing button clicked:', { type, planName, planPrice })
+  const handlePricingClick = (planName, planPrice, type, credits = null, pricePerCredit = null) => {
+    console.log('🔘 Pricing button clicked:', { type, planName, planPrice, credits, pricePerCredit })
     trackPricingClick(type, planName, planPrice)
     trackCTAClick(`pricing_${type}_${planName.toLowerCase().replace(/\s+/g, '-')}`)
     
@@ -49,8 +49,57 @@ function Pricing() {
       sessionStorage.setItem('pricing_model', type)
       sessionStorage.setItem('selected_plan', planName)
       sessionStorage.setItem('selected_plan_price', planPrice)
+      if (credits) {
+        sessionStorage.setItem('selected_credits', credits.toString())
+        sessionStorage.setItem('price_per_credit', pricePerCredit)
+      }
     }
   }
+
+  const creditPackages = [
+    {
+      name: 'Starter Pack',
+      price: '$4',
+      credits: 20,
+      pricePerCredit: '$0.20',
+      description: 'Perfect for trying out Ping and occasional scheduling needs',
+      features: [
+        '20 credits included',
+        'Credits never expire',
+        'All core features',
+        'Great for testing'
+      ],
+      popular: false
+    },
+    {
+      name: 'Value Pack',
+      price: '$8',
+      credits: 60,
+      pricePerCredit: '$0.13',
+      description: 'Best for regular users who schedule a few times per week',
+      features: [
+        '60 credits included',
+        '33% savings vs Starter',
+        'Credits never expire',
+        'All core features'
+      ],
+      popular: true
+    },
+    {
+      name: 'Power Pack',
+      price: '$15',
+      credits: 150,
+      pricePerCredit: '$0.10',
+      description: 'Ideal for frequent users who schedule daily or manage multiple calendars',
+      features: [
+        '150 credits included',
+        '50% savings vs Starter',
+        'Credits never expire',
+        'All core features'
+      ],
+      popular: false
+    }
+  ]
 
   return (
     <section id="pricing" className="pricing section">
@@ -96,8 +145,8 @@ function Pricing() {
         </motion.div>
 
         {/* Pricing Cards */}
-        <div className="pricing-simple-grid">
-          {billingType === 'subscription' ? (
+        {billingType === 'subscription' ? (
+          <div className="pricing-simple-grid">
             <motion.div 
               className="pricing-card-simple featured"
               initial={{ opacity: 0, scale: 0.95 }}
@@ -128,39 +177,51 @@ function Pricing() {
                 Join Waitlist
               </a>
             </motion.div>
-          ) : (
-            <motion.div 
-              className="pricing-card-simple"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3 }}
-            >
-              <div className="plan-header">
-                <h3 className="plan-name">Credits</h3>
-                <div className="plan-price">
-                  <span className="price-amount">$0.10</span>
-                  <span className="price-period">/action</span>
-                </div>
-              </div>
-              <p className="plan-description">
-                Pay only for what you use. Each action (schedule, sync, reminder) costs 1 credit.
-              </p>
-              <ul className="plan-features-simple">
-                <li>Buy credits as needed</li>
-                <li>Credits never expire</li>
-                <li>Same features as unlimited</li>
-                <li>Start with 10 free credits</li>
-              </ul>
-              <a
-                href="#waitlist"
-                className="btn btn-primary"
-                onClick={() => handlePricingClick('Pay As You Go', '$0.10/action', 'credits')}
+          </div>
+        ) : (
+          <div className="pricing-credits-grid">
+            {creditPackages.map((pkg, index) => (
+              <motion.div 
+                key={index}
+                className={`pricing-card-simple ${pkg.popular ? 'popular' : ''}`}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
               >
-                Join Waitlist
-              </a>
-            </motion.div>
-          )}
-        </div>
+                {pkg.popular && (
+                  <div className="popular-badge">Most Popular</div>
+                )}
+                <div className="plan-header">
+                  <h3 className="plan-name">{pkg.name}</h3>
+                  <div className="plan-price">
+                    <span className="price-amount">{pkg.price}</span>
+                    <span className="price-period">one-time</span>
+                  </div>
+                </div>
+                <div className="credit-info">
+                  <span className="total-credits">{pkg.credits} credits</span>
+                  <span className="per-credit">{pkg.pricePerCredit}/credit</span>
+                </div>
+                <p className="plan-description">
+                  {pkg.description}
+                </p>
+                <ul className="plan-features-simple">
+                  {pkg.features.map((feature, idx) => (
+                    <li key={idx}>{feature}</li>
+                  ))}
+                </ul>
+                <a
+                  href="#waitlist"
+                  className={`btn ${pkg.popular ? 'btn-primary' : 'btn-secondary'}`}
+                  onClick={() => handlePricingClick(pkg.name, pkg.price, 'credits', pkg.credits, pkg.pricePerCredit)}
+                >
+                  Join Waitlist
+                </a>
+              </motion.div>
+            ))}
+          </div>
+        )}
 
         <motion.p 
           className="pricing-footer-note"
