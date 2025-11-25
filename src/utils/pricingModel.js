@@ -1,31 +1,38 @@
-// Utility to detect which pricing model is active (for A/B testing tracking)
-// This detects based on the pricing structure in the component
+// Utility to detect which pricing model is active (for analytics tracking)
+// With the simplified pricing model, we primarily rely on sessionStorage
 
 export const getPricingModel = () => {
-  // Check if we're on subscription model by looking for subscription-specific elements
-  // or we can use a more reliable method: check the pricing subtitle
-  const pricingSection = document.querySelector('#pricing')
-  if (!pricingSection) return 'unknown'
+  // First check sessionStorage (most reliable with new simplified model)
+  if (typeof window !== 'undefined') {
+    const stored = sessionStorage.getItem('pricing_model')
+    if (stored && (stored === 'subscription' || stored === 'credits')) {
+      return stored
+    }
+  }
   
-  const subtitle = pricingSection.querySelector('.pricing-subtitle')
-  if (subtitle) {
-    const text = subtitle.textContent.toLowerCase()
-    if (text.includes('simple, transparent pricing') || text.includes('cancel anytime')) {
+  // Fallback: Check DOM for active toggle button
+  const pricingSection = document.querySelector('#pricing')
+  if (pricingSection) {
+    const activeToggle = pricingSection.querySelector('.toggle-btn.active')
+    if (activeToggle) {
+      const text = activeToggle.textContent.toLowerCase()
+      if (text.includes('monthly')) {
+        return 'subscription'
+      }
+      if (text.includes('pay as you go') || text.includes('credits')) {
+        return 'credits'
+      }
+    }
+    
+    // Check for featured card (subscription is featured)
+    const featuredCard = pricingSection.querySelector('.pricing-card-simple.featured')
+    if (featuredCard) {
       return 'subscription'
     }
-    if (text.includes('credit') || text.includes('saves you')) {
-      return 'credits'
-    }
   }
   
-  // Fallback: check for subscription grid class
-  const grid = pricingSection.querySelector('.subscription-grid')
-  if (grid) {
-    return 'subscription'
-  }
-  
-  // Default to credits if we can't determine
-  return 'credits'
+  // Default to subscription (since it's the default state)
+  return 'subscription'
 }
 
 // Store pricing model in sessionStorage when pricing section is viewed
@@ -41,7 +48,12 @@ export const storePricingModel = () => {
 // Get stored pricing model (from sessionStorage)
 export const getStoredPricingModel = () => {
   if (typeof window !== 'undefined') {
-    return sessionStorage.getItem('pricing_model') || 'unknown'
+    const stored = sessionStorage.getItem('pricing_model')
+    if (stored && (stored === 'subscription' || stored === 'credits')) {
+      return stored
+    }
+    // If not found, try to detect from DOM
+    return getPricingModel()
   }
   return 'unknown'
 }

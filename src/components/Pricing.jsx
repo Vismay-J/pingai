@@ -1,10 +1,44 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { trackPricingClick, trackCTAClick } from '../utils/analytics'
+import { trackPricingClick, trackCTAClick, trackEvent } from '../utils/analytics'
 import './Pricing.css'
 
 function Pricing() {
   const [billingType, setBillingType] = useState('subscription')
+
+  // Store pricing model in sessionStorage when component mounts or billing type changes
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('pricing_model', billingType)
+    }
+  }, [billingType])
+
+  // Track initial pricing section view (only once on mount)
+  useEffect(() => {
+    trackEvent('pricing_section_view', {
+      pricing_model: billingType,
+      default_model: 'subscription'
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []) // Only run once on mount
+
+  const handleToggle = (newType) => {
+    if (newType !== billingType) {
+      // Track toggle event
+      trackEvent('pricing_toggle', {
+        from_model: billingType,
+        to_model: newType,
+        pricing_model: newType
+      })
+      
+      setBillingType(newType)
+      
+      // Store in sessionStorage immediately
+      if (typeof window !== 'undefined') {
+        sessionStorage.setItem('pricing_model', newType)
+      }
+    }
+  }
 
   const handlePricingClick = (planName, planPrice, type) => {
     console.log('🔘 Pricing button clicked:', { type, planName, planPrice })
@@ -49,13 +83,13 @@ function Pricing() {
         >
           <button 
             className={`toggle-btn ${billingType === 'subscription' ? 'active' : ''}`}
-            onClick={() => setBillingType('subscription')}
+            onClick={() => handleToggle('subscription')}
           >
             Monthly
           </button>
           <button 
             className={`toggle-btn ${billingType === 'credits' ? 'active' : ''}`}
-            onClick={() => setBillingType('credits')}
+            onClick={() => handleToggle('credits')}
           >
             Pay As You Go
           </button>
